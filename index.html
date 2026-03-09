@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kebijakan Privasi – Catat-in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0d0f14;
+      --surface:   #13161e;
+      --surface2:  #1a1e28;
+      --border:    #252b38;
+      --accent:    #4ade80;
+      --accent2:   #22d3ee;
+      --accent3:   #a78bfa;
+      --text:      #e8eaf0;
+      --muted:     #7a8194;
+      --danger:    #f87171;
+      --warn:      #fb923c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── noise texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── gradient blobs ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--accent); top: -200px; left: -200px; animation: drift 18s ease-in-out infinite alternate; }
+    .blob-2 { width: 500px; height: 500px; background: var(--accent2); bottom: -150px; right: -150px; animation: drift 22s ease-in-out infinite alternate-reverse; }
+    .blob-3 { width: 350px; height: 350px; background: var(--accent3); top: 40%; left: 55%; animation: drift 15s ease-in-out infinite alternate; }
+
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    /* ── layout ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── header ── */
+    header {
+      padding: 72px 0 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+      animation: slideUp .6s ease both;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(74, 222, 128, .1);
+      border: 1px solid rgba(74, 222, 128, .25);
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .badge::before { content: '●'; font-size: 8px; }
+
+    h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+    }
+    h1 span { color: var(--accent); }
+
+    .meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* ── toc ── */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent2);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 48px;
+      animation: slideUp .6s .1s ease both;
+    }
+    .toc-title {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--accent2);
+      margin-bottom: 14px;
+    }
+    .toc ol {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 24px;
+      counter-reset: toc;
+    }
+    @media (max-width: 540px) { .toc ol { grid-template-columns: 1fr; } }
+    .toc li { counter-increment: toc; }
+    .toc a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color .2s;
+    }
+    .toc a::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--border);
+      transition: color .2s;
+    }
+    .toc a:hover { color: var(--text); }
+    .toc a:hover::before { color: var(--accent); }
+
+    /* ── sections ── */
+    section {
+      margin-bottom: 52px;
+      animation: slideUp .5s ease both;
+    }
+    section:nth-child(1) { animation-delay: .15s; }
+    section:nth-child(2) { animation-delay: .2s; }
+    section:nth-child(3) { animation-delay: .25s; }
+    section:nth-child(4) { animation-delay: .3s; }
+    section:nth-child(5) { animation-delay: .35s; }
+    section:nth-child(6) { animation-delay: .4s; }
+    section:nth-child(7) { animation-delay: .45s; }
+    section:nth-child(8) { animation-delay: .5s; }
+    section:nth-child(9) { animation-delay: .55s; }
+    section:nth-child(10) { animation-delay: .6s; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(74, 222, 128, .08);
+      border: 1px solid rgba(74, 222, 128, .2);
+      padding: 4px 9px;
+      border-radius: 6px;
+      white-space: nowrap;
+      margin-top: 5px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      line-height: 1.3;
+    }
+
+    p { color: #b0b6c6; margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--text); font-weight: 600; }
+
+    /* ── cards / tables ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .card-header {
+      background: var(--surface2);
+      padding: 12px 20px;
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    th {
+      background: var(--surface2);
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 16px;
+      color: #b0b6c6;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,.02); }
+    .tag {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 100px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+    }
+    .tag-local  { background: rgba(74,222,128,.1);  color: var(--accent);  border: 1px solid rgba(74,222,128,.2); }
+    .tag-cloud  { background: rgba(34,211,238,.1);  color: var(--accent2); border: 1px solid rgba(34,211,238,.2); }
+    .tag-device { background: rgba(167,139,250,.1); color: var(--accent3); border: 1px solid rgba(167,139,250,.2); }
+    .tag-never  { background: rgba(248,113,113,.08); color: var(--danger);  border: 1px solid rgba(248,113,113,.2); }
+
+    /* ── permission list ── */
+    .perm-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .perm-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .perm-icon {
+      font-size: 18px;
+      padding-top: 2px;
+    }
+    .perm-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent2);
+      margin-bottom: 3px;
+    }
+    .perm-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── callout ── */
+    .callout {
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 13.5px;
+    }
+    .callout-icon { font-size: 18px; flex-shrink: 0; padding-top: 2px; }
+    .callout.green  { background: rgba(74,222,128,.07);  border: 1px solid rgba(74,222,128,.2);  color: #a7f3c0; }
+    .callout.blue   { background: rgba(34,211,238,.07);  border: 1px solid rgba(34,211,238,.2);  color: #a5f3fc; }
+    .callout.purple { background: rgba(167,139,250,.07); border: 1px solid rgba(167,139,250,.2); color: #ddd6fe; }
+    .callout.orange { background: rgba(251,146,60,.07);  border: 1px solid rgba(251,146,60,.2);  color: #fed7aa; }
+    .callout.red    { background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.2); color: #fecaca; }
+
+    /* ── footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 8px;
+    }
+    .footer-logo span { color: var(--accent); }
+    footer p {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+    footer a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── scroll progress ── */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0%;
+      z-index: 100;
+      transition: width .1s linear;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* ── animations ── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── responsive ── */
+    @media (max-width: 600px) {
+      header { padding: 48px 0 32px; }
+      .meta { gap: 12px; }
+      td, th { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="badge">Dokumen Resmi</div>
+    <h1>Kebijakan Privasi<br><span>Catat-in</span></h1>
+    <p style="color:var(--muted); font-size:14px; max-width:560px;">
+      Kami berkomitmen menjaga privasi data Anda. Halaman ini menjelaskan secara transparan
+      data apa yang dikumpulkan, bagaimana digunakan, dan hak-hak Anda sebagai pengguna.
+    </p>
+    <div class="meta">
+      <span>📅 Berlaku sejak: 9 Maret 2026</span>
+      <span>🔄 Terakhir diperbarui: 9 Maret 2026</span>
+      <span>📱 Versi Aplikasi: Beta</span>
+    </div>
+  </header>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <div class="toc-title">// Daftar Isi</div>
+    <ol>
+      <li><a href="#s1">Tentang Aplikasi</a></li>
+      <li><a href="#s2">Data yang Dikumpulkan</a></li>
+      <li><a href="#s3">Izin Perangkat</a></li>
+      <li><a href="#s4">Cara Penggunaan Data</a></li>
+      <li><a href="#s5">Penyimpanan & Sinkronisasi</a></li>
+      <li><a href="#s6">Berbagi Data</a></li>
+      <li><a href="#s7">Keamanan Data</a></li>
+      <li><a href="#s8">Hak Pengguna</a></li>
+      <li><a href="#s9">Layanan Pihak Ketiga</a></li>
+      <li><a href="#s10">Hubungi Kami</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <section id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Tentang Aplikasi Catat-in</h2>
+    </div>
+    <p>
+      <strong>Catat-in</strong> adalah aplikasi pencatatan keuangan untuk Usaha Mikro Kecil dan Menengah (UMKM)
+      yang dikembangkan secara independen. Aplikasi ini membantu pemilik usaha mencatat transaksi pemasukan
+      dan pengeluaran, mengelola kategori, serta memantau arus kas usaha secara mudah dan efisien.
+    </p>
+    <p>
+      Kebijakan Privasi ini berlaku untuk aplikasi Android <strong>Catat-in</strong>
+      (Package ID: <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);">com.umkm.app</code>)
+      dan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda.
+    </p>
+    <div class="callout green">
+      <span class="callout-icon">🛡️</span>
+      <span>Catat-in dirancang dengan prinsip <strong>offline-first</strong> — semua data Anda disimpan
+      terlebih dahulu di perangkat Anda sendiri. Sinkronisasi ke cloud hanya dilakukan saat Anda online
+      dan bertujuan untuk backup serta kolaborasi antar perangkat.</span>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Data yang Dikumpulkan</h2>
+    </div>
+    <p>Berikut adalah rincian lengkap data yang dikumpulkan oleh aplikasi Catat-in:</p>
+
+    <div class="card">
+      <div class="card-header">// Tabel Data yang Dikumpulkan</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Jenis Data</th>
+            <th>Detail</th>
+            <th>Lokasi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Data Usaha</strong></td>
+            <td>Nama usaha, kode undangan (invite code), ID perangkat pemilik</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+          <tr>
+            <td><strong>Data Transaksi</strong></td>
+            <td>Jenis (pemasukan/pengeluaran), nominal, kategori, catatan, tanggal, foto nota</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+          <tr>
+            <td><strong>Kategori</strong></td>
+            <td>Nama kategori, tipe, ikon</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+          <tr>
+            <td><strong>Saldo Awal</strong></td>
+            <td>Nilai saldo awal yang diatur pengguna</td>
+            <td><span class="tag tag-local">Lokal</span></td>
+          </tr>
+          <tr>
+            <td><strong>ID Perangkat</strong></td>
+            <td>UUID unik yang dibuat secara acak saat instalasi pertama</td>
+            <td><span class="tag tag-device">Perangkat</span></td>
+          </tr>
+          <tr>
+            <td><strong>PIN (terenkripsi)</strong></td>
+            <td>Disimpan sebagai hash kriptografi, bukan teks asli</td>
+            <td><span class="tag tag-local">Lokal</span></td>
+          </tr>
+          <tr>
+            <td><strong>Preferensi Notifikasi</strong></td>
+            <td>Jam pengingat pagi/malam, frekuensi notifikasi</td>
+            <td><span class="tag tag-local">Lokal</span></td>
+          </tr>
+          <tr>
+            <td><strong>Foto Nota/Struk</strong></td>
+            <td>Foto bukti transaksi yang diambil menggunakan kamera</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+          <tr>
+            <td><strong>Data Pribadi (Nama, Email, dsb.)</strong></td>
+            <td>Tidak ada akun pengguna — kami tidak mengumpulkan data pribadi</td>
+            <td><span class="tag tag-never">Tidak Dikumpulkan</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout blue">
+      <span class="callout-icon">ℹ️</span>
+      <span><strong>Tidak ada akun pengguna.</strong> Catat-in tidak memerlukan pendaftaran, email, atau
+      nomor telepon. Identitas pengguna direpresentasikan oleh Device ID yang dibuat secara acak di perangkat
+      Anda dan tidak dapat digunakan untuk mengidentifikasi Anda secara pribadi.</span>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Izin Perangkat yang Diperlukan</h2>
+    </div>
+    <p>Catat-in meminta izin berikut pada perangkat Anda. Setiap izin hanya digunakan untuk fungsi yang disebutkan:</p>
+
+    <div class="perm-list">
+      <div class="perm-item">
+        <div class="perm-icon">📷</div>
+        <div>
+          <div class="perm-name">CAMERA</div>
+          <p class="perm-desc">Digunakan untuk mengambil foto nota/struk transaksi sebagai bukti pengeluaran atau pemasukan. Kamera tidak diakses di latar belakang.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">🌐</div>
+        <div>
+          <div class="perm-name">INTERNET</div>
+          <p class="perm-desc">Digunakan untuk menyinkronkan data transaksi ke cloud (Supabase) saat perangkat terhubung ke internet. Aplikasi tetap berfungsi penuh tanpa koneksi internet.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">🔔</div>
+        <div>
+          <div class="perm-name">POST_NOTIFICATIONS</div>
+          <p class="perm-desc">Digunakan untuk mengirim pengingat pencatatan transaksi sesuai jadwal yang Anda atur (misalnya pengingat pagi dan malam).</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">☀️</div>
+        <div>
+          <div class="perm-name">RECEIVE_BOOT_COMPLETED</div>
+          <p class="perm-desc">Digunakan agar jadwal notifikasi pengingat dapat dipulihkan otomatis setelah perangkat dinyalakan ulang (restart).</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">👆</div>
+        <div>
+          <div class="perm-name">USE_BIOMETRIC</div>
+          <p class="perm-desc">Digunakan untuk otentikasi biometrik (sidik jari/wajah) sebagai alternatif PIN saat membuka aplikasi. Data biometrik tidak disimpan oleh aplikasi — diproses sepenuhnya oleh sistem Android.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">🎙️</div>
+        <div>
+          <div class="perm-name">RECORD_AUDIO</div>
+          <p class="perm-desc">Digunakan untuk fitur input suara (voice-to-text) saat mencatat transaksi. Rekaman audio tidak disimpan — hanya diproses secara lokal untuk konversi teks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Cara Penggunaan Data</h2>
+    </div>
+    <p>Data yang dikumpulkan digunakan <strong>semata-mata</strong> untuk keperluan berikut:</p>
+
+    <div class="card">
+      <div class="card-header">// Tujuan Penggunaan Data</div>
+      <table>
+        <thead>
+          <tr><th>Tujuan</th><th>Deskripsi</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Fungsionalitas Inti</strong></td>
+            <td>Mencatat, membaca, memperbarui, dan menghapus transaksi keuangan usaha Anda</td>
+          </tr>
+          <tr>
+            <td><strong>Backup & Sinkronisasi</strong></td>
+            <td>Menyimpan salinan data ke cloud agar tidak hilang jika perangkat berganti atau rusak</td>
+          </tr>
+          <tr>
+            <td><strong>Kolaborasi Usaha</strong></td>
+            <td>Memungkinkan beberapa perangkat dalam satu usaha berbagi data via kode undangan</td>
+          </tr>
+          <tr>
+            <td><strong>Notifikasi Pengingat</strong></td>
+            <td>Mengirim pengingat untuk mencatat transaksi sesuai jadwal Anda</td>
+          </tr>
+          <tr>
+            <td><strong>Keamanan Aplikasi</strong></td>
+            <td>Memverifikasi PIN dan biometrik untuk mencegah akses tidak sah ke data usaha</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout red">
+      <span class="callout-icon">🚫</span>
+      <span>Data Anda <strong>tidak pernah</strong> digunakan untuk iklan, analitik pihak ketiga, profiling pengguna, atau dijual kepada siapapun dalam bentuk apapun.</span>
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Penyimpanan & Sinkronisasi Data</h2>
+    </div>
+    <p>
+      Catat-in menggunakan arsitektur <strong>offline-first</strong>. Data selalu disimpan terlebih dahulu
+      di penyimpanan lokal perangkat menggunakan database Room (SQLite). Sinkronisasi ke cloud
+      dilakukan secara otomatis di latar belakang oleh WorkManager saat perangkat terhubung ke internet.
+    </p>
+
+    <div class="card">
+      <div class="card-header">// Alur Penyimpanan Data</div>
+      <table>
+        <thead>
+          <tr><th>Lapisan</th><th>Teknologi</th><th>Data yang Disimpan</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Lokal (Perangkat)</strong></td>
+            <td>Room Database (SQLite)</td>
+            <td>Semua data transaksi, kategori, usaha, pengaturan, hash PIN</td>
+          </tr>
+          <tr>
+            <td><strong>Cloud (Remote)</strong></td>
+            <td>Supabase (PostgreSQL)</td>
+            <td>Transaksi, kategori, data usaha (tanpa PIN, tanpa biometrik)</td>
+          </tr>
+          <tr>
+            <td><strong>Cloud Storage</strong></td>
+            <td>Supabase Storage</td>
+            <td>Foto nota/struk transaksi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Server Supabase yang kami gunakan berlokasi di <strong>Singapore (Asia-Pacific)</strong>.
+      Data disimpan dengan enkripsi saat penyimpanan (encryption at rest) dan enkripsi saat transmisi (TLS/HTTPS).
+    </p>
+    <p>
+      Data lokal Anda tersimpan di penyimpanan internal aplikasi dan <strong>tidak dapat diakses
+      oleh aplikasi lain</strong>. Sesuai konfigurasi manifest, fitur Android Backup
+      (<code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);">allowBackup</code>)
+      dinonaktifkan untuk melindungi privasi data usaha Anda.
+    </p>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Berbagi Data dengan Pihak Lain</h2>
+    </div>
+
+    <div class="callout green">
+      <span class="callout-icon">✅</span>
+      <span>Kami <strong>tidak menjual, menyewakan, atau memperdagangkan</strong> data Anda kepada pihak ketiga manapun.</span>
+    </div>
+
+    <p>Data Anda hanya dapat dibagikan dalam situasi berikut:</p>
+
+    <div class="card">
+      <div class="card-header">// Kondisi Berbagi Data</div>
+      <table>
+        <thead>
+          <tr><th>Kondisi</th><th>Penjelasan</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Kolaborasi Usaha</strong></td>
+            <td>Ketika Anda membagikan <em>kode undangan</em> usaha ke rekan kerja, mereka dapat mengakses data transaksi usaha yang sama. Ini adalah fitur yang Anda aktifkan secara sadar dan sukarela.</td>
+          </tr>
+          <tr>
+            <td><strong>Penyedia Infrastruktur</strong></td>
+            <td>Supabase sebagai penyedia database cloud dapat mengakses data sesuai <a href="https://supabase.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">kebijakan privasi mereka</a>. Kami menggunakan Supabase hanya sebagai penyimpanan data terenkripsi.</td>
+          </tr>
+          <tr>
+            <td><strong>Kewajiban Hukum</strong></td>
+            <td>Jika diwajibkan oleh hukum yang berlaku di Indonesia, kami dapat mengungkapkan data kepada pihak berwenang sesuai prosedur hukum yang sah.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 7 -->
+  <section id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Keamanan Data</h2>
+    </div>
+    <p>Kami menerapkan langkah-langkah keamanan berikut untuk melindungi data Anda:</p>
+
+    <div class="perm-list">
+      <div class="perm-item">
+        <div class="perm-icon">🔐</div>
+        <div>
+          <div class="perm-name">Enkripsi PIN</div>
+          <p class="perm-desc">PIN Anda disimpan sebagai hash kriptografi — bukan teks asli. Bahkan pengembang tidak dapat membaca PIN Anda.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">🧬</div>
+        <div>
+          <div class="perm-name">Biometrik via Android Keystore</div>
+          <p class="perm-desc">Data biometrik (sidik jari, wajah) diproses sepenuhnya oleh sistem Android dan hardware perangkat. Aplikasi hanya menerima sinyal "berhasil/gagal" tanpa menyimpan data biometrik apapun.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">🔒</div>
+        <div>
+          <div class="perm-name">HTTPS/TLS</div>
+          <p class="perm-desc">Semua komunikasi jaringan antara aplikasi dan server Supabase dienkripsi menggunakan protokol TLS.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">📦</div>
+        <div>
+          <div class="perm-name">Isolasi Penyimpanan Lokal</div>
+          <p class="perm-desc">Database lokal berada di penyimpanan privat aplikasi (tidak dapat diakses aplikasi lain). Android Backup dinonaktifkan untuk mencegah kebocoran data melalui backup cloud Android.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">🗑️</div>
+        <div>
+          <div class="perm-name">Soft Delete Aman</div>
+          <p class="perm-desc">Transaksi yang dihapus ditandai sebagai <code style="font-family:'DM Mono',monospace;font-size:11px;">is_deleted=true</code> dan disinkronkan ke cloud sebelum dihapus permanen, memastikan konsistensi data.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout orange">
+      <span class="callout-icon">⚠️</span>
+      <span>Meskipun kami menerapkan berbagai langkah keamanan, tidak ada sistem yang 100% aman.
+      Kami menyarankan Anda mengaktifkan PIN dan/atau biometrik di aplikasi untuk perlindungan tambahan,
+      serta menjaga kerahasiaan kode undangan usaha Anda.</span>
+    </div>
+  </section>
+
+  <!-- SECTION 8 -->
+  <section id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Hak-Hak Anda sebagai Pengguna</h2>
+    </div>
+    <p>Sebagai pengguna Catat-in, Anda memiliki kontrol penuh atas data Anda:</p>
+
+    <div class="card">
+      <div class="card-header">// Hak Pengguna</div>
+      <table>
+        <thead>
+          <tr><th>Hak</th><th>Cara Melakukannya</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Akses Data</strong></td>
+            <td>Semua data tersedia langsung di dalam aplikasi dan dapat dilihat kapan saja</td>
+          </tr>
+          <tr>
+            <td><strong>Mengedit Data</strong></td>
+            <td>Edit transaksi, kategori, dan pengaturan langsung dari antarmuka aplikasi</td>
+          </tr>
+          <tr>
+            <td><strong>Menghapus Data</strong></td>
+            <td>Hapus transaksi atau kategori dari dalam aplikasi; hapus semua data dengan menghapus instalasi aplikasi</td>
+          </tr>
+          <tr>
+            <td><strong>Portabilitas Data</strong></td>
+            <td>Hubungi kami untuk permintaan ekspor data Anda dari server cloud</td>
+          </tr>
+          <tr>
+            <td><strong>Menghapus Data Cloud</strong></td>
+            <td>Hubungi kami untuk permintaan penghapusan data Anda dari server Supabase secara permanen</td>
+          </tr>
+          <tr>
+            <td><strong>Menonaktifkan Sinkronisasi</strong></td>
+            <td>Gunakan aplikasi dalam mode offline (tanpa koneksi internet) — data hanya tersimpan lokal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 9 -->
+  <section id="s9">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2>Layanan Pihak Ketiga</h2>
+    </div>
+    <p>Catat-in menggunakan layanan pihak ketiga berikut yang masing-masing memiliki kebijakan privasi tersendiri:</p>
+
+    <div class="card">
+      <div class="card-header">// Daftar Layanan Pihak Ketiga</div>
+      <table>
+        <thead>
+          <tr><th>Layanan</th><th>Fungsi</th><th>Kebijakan Privasi</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Supabase</strong></td>
+            <td>Database cloud (PostgreSQL) dan penyimpanan foto nota</td>
+            <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">supabase.com/privacy</a></td>
+          </tr>
+          <tr>
+            <td><strong>Android WorkManager</strong></td>
+            <td>Manajemen tugas background untuk sinkronisasi data</td>
+            <td>Bagian dari Android (Google)</td>
+          </tr>
+          <tr>
+            <td><strong>Android Biometric API</strong></td>
+            <td>Autentikasi sidik jari / pengenalan wajah</td>
+            <td>Bagian dari Android (Google)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout purple">
+      <span class="callout-icon">📌</span>
+      <span>Catat-in <strong>tidak menggunakan</strong> Google Analytics, Firebase Analytics, Facebook SDK,
+      atau SDK iklan/analitik pihak ketiga lainnya. Tidak ada SDK perekam sesi atau pelacak pengguna
+      yang diimplementasikan dalam aplikasi ini.</span>
+    </div>
+  </section>
+
+  <!-- SECTION 10 -->
+  <section id="s10">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2>Perubahan Kebijakan & Hubungi Kami</h2>
+    </div>
+    <p>
+      Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Perubahan signifikan akan
+      diberitahukan melalui notifikasi dalam aplikasi. Tanggal "Terakhir diperbarui" di bagian atas
+      halaman ini akan selalu mencerminkan versi terkini.
+    </p>
+    <p>
+      Dengan terus menggunakan Catat-in setelah perubahan berlaku, Anda menyetujui kebijakan privasi
+      yang telah diperbarui.
+    </p>
+
+    <div class="card" style="margin-top:24px;">
+      <div class="card-header">// Kontak</div>
+      <table>
+        <tbody>
+          <tr>
+            <td style="width:140px;"><strong>Email</strong></td>
+            <td><a href="mailto:difanamus@gmail.com" style="color:var(--accent2);">difanamus@gmail.com</a></td>
+          </tr>
+          <tr>
+            <td><strong>GitHub</strong></td>
+            <td><a href="https://github.com/difanamus/catat-in" target="_blank" rel="noopener" style="color:var(--accent2);">github.com/difanamus/catat-in</a></td>
+          </tr>
+          <tr>
+            <td><strong>Negara</strong></td>
+            <td>Indonesia 🇮🇩</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout green" style="margin-top:24px;">
+      <span class="callout-icon">💬</span>
+      <span>Punya pertanyaan tentang privasi data Anda? Jangan ragu untuk menghubungi kami.
+      Kami berkomitmen merespons setiap pertanyaan terkait privasi dalam waktu <strong>7 hari kerja</strong>.</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Catat<span>-in</span></div>
+    <p>Aplikasi Keuangan UMKM · Dibuat dengan ❤️ di Indonesia oleh <strong>Install-In</strong></p>
+    <p style="margin-top:8px;">© 2025–2026 Catat-in · Semua hak dilindungi</p>
+    <p style="margin-top:16px; font-size:11px;">
+      Kebijakan ini ditulis dalam Bahasa Indonesia sesuai regulasi perlindungan data yang berlaku di Indonesia.
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  // scroll progress bar
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (window.scrollY / total) * 100;
+    document.getElementById('progress').style.width = progress + '%';
+  });
+</script>
+</body>
+</html>
