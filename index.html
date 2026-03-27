@@ -176,9 +176,6 @@
     section:nth-child(5) { animation-delay: .35s; }
     section:nth-child(6) { animation-delay: .4s; }
     section:nth-child(7) { animation-delay: .45s; }
-    section:nth-child(8) { animation-delay: .5s; }
-    section:nth-child(9) { animation-delay: .55s; }
-    section:nth-child(10) { animation-delay: .6s; }
 
     .section-header {
       display: flex;
@@ -263,6 +260,16 @@
     .tag-cloud  { background: rgba(34,211,238,.1);  color: var(--accent2); border: 1px solid rgba(34,211,238,.2); }
     .tag-device { background: rgba(167,139,250,.1); color: var(--accent3); border: 1px solid rgba(167,139,250,.2); }
     .tag-never  { background: rgba(248,113,113,.08); color: var(--danger);  border: 1px solid rgba(248,113,113,.2); }
+
+    /* ── sub-section label ── */
+    .sub-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent3);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin: 24px 0 10px;
+    }
 
     /* ── permission list ── */
     .perm-list {
@@ -378,13 +385,14 @@
     <div class="badge">Dokumen Resmi</div>
     <h1>Kebijakan Privasi<br><span>Catat-in</span></h1>
     <p style="color:var(--muted); font-size:14px; max-width:560px;">
-      Kami berkomitmen menjaga privasi data Anda. Halaman ini menjelaskan secara transparan
-      data apa yang dikumpulkan, bagaimana digunakan, dan hak-hak Anda sebagai pengguna.
+      Kami sangat menghargai privasi Anda dan berkomitmen untuk melindungi data keuangan usaha Anda.
+      Halaman ini menjelaskan secara transparan data apa yang dikumpulkan, bagaimana digunakan,
+      dan hak-hak Anda sebagai pengguna.
     </p>
     <div class="meta">
-      <span>📅 Berlaku sejak: 9 Maret 2026</span>
-      <span>🔄 Terakhir diperbarui: 9 Maret 2026</span>
-      <span>📱 Versi Aplikasi: Beta</span>
+      <span>📅 Berlaku sejak: 27 Maret 2026</span>
+      <span>🔄 Terakhir diperbarui: 27 Maret 2026</span>
+      <span>📱 Package ID: com.umkm.app</span>
     </div>
   </header>
 
@@ -395,13 +403,10 @@
       <li><a href="#s1">Tentang Aplikasi</a></li>
       <li><a href="#s2">Data yang Dikumpulkan</a></li>
       <li><a href="#s3">Izin Perangkat</a></li>
-      <li><a href="#s4">Cara Penggunaan Data</a></li>
-      <li><a href="#s5">Penyimpanan & Sinkronisasi</a></li>
-      <li><a href="#s6">Berbagi Data</a></li>
-      <li><a href="#s7">Keamanan Data</a></li>
-      <li><a href="#s8">Hak Pengguna</a></li>
-      <li><a href="#s9">Layanan Pihak Ketiga</a></li>
-      <li><a href="#s10">Hubungi Kami</a></li>
+      <li><a href="#s4">Keamanan & Penyimpanan</a></li>
+      <li><a href="#s5">Layanan Pihak Ketiga</a></li>
+      <li><a href="#s6">Hak Pengguna</a></li>
+      <li><a href="#s7">Hubungi Kami</a></li>
     </ol>
   </div>
 
@@ -412,20 +417,21 @@
       <h2>Tentang Aplikasi Catat-in</h2>
     </div>
     <p>
-      <strong>Catat-in</strong> adalah aplikasi pencatatan keuangan untuk Usaha Mikro Kecil dan Menengah (UMKM)
-      yang dikembangkan secara independen. Aplikasi ini membantu pemilik usaha mencatat transaksi pemasukan
-      dan pengeluaran, mengelola kategori, serta memantau arus kas usaha secara mudah dan efisien.
+      <strong>Catat-in</strong> adalah aplikasi pencatatan keuangan yang dirancang khusus untuk
+      Usaha Mikro, Kecil, dan Menengah (UMKM). Aplikasi ini membantu pemilik usaha mencatat
+      transaksi, mengelola kategori, dan memantau arus kas secara mandiri.
     </p>
     <p>
       Kebijakan Privasi ini berlaku untuk aplikasi Android <strong>Catat-in</strong>
       (Package ID: <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);">com.umkm.app</code>)
-      dan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda.
+      dan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda
+      saat menggunakan aplikasi ini.
     </p>
     <div class="callout green">
       <span class="callout-icon">🛡️</span>
-      <span>Catat-in dirancang dengan prinsip <strong>offline-first</strong> — semua data Anda disimpan
-      terlebih dahulu di perangkat Anda sendiri. Sinkronisasi ke cloud hanya dilakukan saat Anda online
-      dan bertujuan untuk backup serta kolaborasi antar perangkat.</span>
+      <span>Catat-in menggunakan arsitektur <strong>offline-first</strong> dengan sinkronisasi
+      cloud yang aman ke server Supabase. Semua data Anda disimpan terlebih dahulu di perangkat,
+      dan sinkronisasi ke cloud dilakukan secara aman menggunakan enkripsi TLS/HTTPS.</span>
     </div>
   </section>
 
@@ -433,75 +439,115 @@
   <section id="s2">
     <div class="section-header">
       <span class="section-num">02</span>
-      <h2>Data yang Dikumpulkan</h2>
+      <h2>Data yang Kami Kumpulkan</h2>
     </div>
-    <p>Berikut adalah rincian lengkap data yang dikumpulkan oleh aplikasi Catat-in:</p>
+    <p>Untuk memberikan operasional aplikasi yang stabil dan sinkron antar perangkat, kami mengumpulkan beberapa jenis informasi:</p>
 
+    <!-- A -->
+    <div class="sub-label">A. Informasi Identitas Akun</div>
+    <p>Aplikasi ini mewajibkan login melalui <strong>Google Sign-In</strong>. Informasi yang kami terima dari akun Google Anda meliputi:</p>
     <div class="card">
-      <div class="card-header">// Tabel Data yang Dikumpulkan</div>
+      <div class="card-header">// Data Akun Google</div>
       <table>
         <thead>
-          <tr>
-            <th>Jenis Data</th>
-            <th>Detail</th>
-            <th>Lokasi</th>
-          </tr>
+          <tr><th>Data</th><th>Keterangan</th><th>Penyimpanan</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Data Usaha</strong></td>
-            <td>Nama usaha, kode undangan (invite code), ID perangkat pemilik</td>
+            <td><strong>Nama Lengkap</strong></td>
+            <td>Ditampilkan sebagai identitas pengguna di dalam aplikasi</td>
             <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
           </tr>
           <tr>
-            <td><strong>Data Transaksi</strong></td>
-            <td>Jenis (pemasukan/pengeluaran), nominal, kategori, catatan, tanggal, foto nota</td>
+            <td><strong>Alamat Email</strong></td>
+            <td>Digunakan sebagai identitas utama akun dan keperluan sinkronisasi</td>
             <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
           </tr>
           <tr>
-            <td><strong>Kategori</strong></td>
-            <td>Nama kategori, tipe, ikon</td>
-            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
-          </tr>
-          <tr>
-            <td><strong>Saldo Awal</strong></td>
-            <td>Nilai saldo awal yang diatur pengguna</td>
+            <td><strong>URL Foto Profil</strong></td>
+            <td>Ditampilkan sebagai avatar pengguna di dalam aplikasi</td>
             <td><span class="tag tag-local">Lokal</span></td>
           </tr>
           <tr>
-            <td><strong>ID Perangkat</strong></td>
-            <td>UUID unik yang dibuat secara acak saat instalasi pertama</td>
-            <td><span class="tag tag-device">Perangkat</span></td>
-          </tr>
-          <tr>
-            <td><strong>PIN (terenkripsi)</strong></td>
-            <td>Disimpan sebagai hash kriptografi, bukan teks asli</td>
-            <td><span class="tag tag-local">Lokal</span></td>
-          </tr>
-          <tr>
-            <td><strong>Preferensi Notifikasi</strong></td>
-            <td>Jam pengingat pagi/malam, frekuensi notifikasi</td>
-            <td><span class="tag tag-local">Lokal</span></td>
-          </tr>
-          <tr>
-            <td><strong>Foto Nota/Struk</strong></td>
-            <td>Foto bukti transaksi yang diambil menggunakan kamera</td>
-            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
-          </tr>
-          <tr>
-            <td><strong>Data Pribadi (Nama, Email, dsb.)</strong></td>
-            <td>Tidak ada akun pengguna — kami tidak mengumpulkan data pribadi</td>
-            <td><span class="tag tag-never">Tidak Dikumpulkan</span></td>
+            <td><strong>ID Unik Google</strong></td>
+            <td>Digunakan untuk keperluan sinkronisasi data antar perangkat</td>
+            <td><span class="tag tag-cloud">Cloud</span></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="callout blue">
-      <span class="callout-icon">ℹ️</span>
-      <span><strong>Tidak ada akun pengguna.</strong> Catat-in tidak memerlukan pendaftaran, email, atau
-      nomor telepon. Identitas pengguna direpresentasikan oleh Device ID yang dibuat secara acak di perangkat
-      Anda dan tidak dapat digunakan untuk mengidentifikasi Anda secara pribadi.</span>
+    <!-- B -->
+    <div class="sub-label">B. Data Transaksi & Usaha</div>
+    <p>Semua data yang Anda masukkan ke dalam aplikasi <strong>tetap menjadi milik Anda sepenuhnya</strong>:</p>
+    <div class="card">
+      <div class="card-header">// Data Keuangan Usaha</div>
+      <table>
+        <thead>
+          <tr><th>Data</th><th>Keterangan</th><th>Penyimpanan</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Catatan Transaksi</strong></td>
+            <td>Pemasukan, pengeluaran, dan saldo kas usaha Anda</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+          <tr>
+            <td><strong>Profil Usaha</strong></td>
+            <td>Nama usaha dan informasi bisnis yang Anda isi</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+          <tr>
+            <td><strong>Foto Nota / Struk</strong></td>
+            <td>Foto bukti transaksi yang Anda unggah secara manual</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+          <tr>
+            <td><strong>Kategori Kustom</strong></td>
+            <td>Kategori transaksi yang Anda buat sendiri</td>
+            <td><span class="tag tag-local">Lokal</span> <span class="tag tag-cloud">Cloud</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- C -->
+    <div class="sub-label">C. Data Teknis & Penggunaan</div>
+    <p>Kami mengumpulkan data teknis secara otomatis untuk pembersihan bug dan analisis penggunaan:</p>
+    <div class="card">
+      <div class="card-header">// Data Teknis Otomatis</div>
+      <table>
+        <thead>
+          <tr><th>Data</th><th>Tujuan</th><th>Dikumpulkan oleh</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Informasi Perangkat</strong></td>
+            <td>Model perangkat, versi Android, dan resolusi layar</td>
+            <td>Sistem Android</td>
+          </tr>
+          <tr>
+            <td><strong>Advertising ID</strong></td>
+            <td>Keperluan statistik dasar iklan</td>
+            <td>Google AdMob</td>
+          </tr>
+          <tr>
+            <td><strong>Data Log & Crash</strong></td>
+            <td>Catatan teknis jika terjadi kesalahan aplikasi</td>
+            <td>Firebase Crashlytics</td>
+          </tr>
+          <tr>
+            <td><strong>Analytics Anonim</strong></td>
+            <td>Statistik penggunaan fitur secara anonim</td>
+            <td>Firebase Analytics</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout red">
+      <span class="callout-icon">🚫</span>
+      <span>Data transaksi dan keuangan usaha Anda <strong>tidak pernah</strong> digunakan untuk keperluan iklan, profiling, atau dijual kepada pihak manapun dalam bentuk apapun.</span>
     </div>
   </section>
 
@@ -511,49 +557,42 @@
       <span class="section-num">03</span>
       <h2>Izin Perangkat yang Diperlukan</h2>
     </div>
-    <p>Catat-in meminta izin berikut pada perangkat Anda. Setiap izin hanya digunakan untuk fungsi yang disebutkan:</p>
+    <p>Kami hanya meminta izin yang digunakan secara fungsional. Setiap izin hanya aktif saat fitur terkait digunakan:</p>
 
     <div class="perm-list">
       <div class="perm-item">
         <div class="perm-icon">📷</div>
         <div>
           <div class="perm-name">CAMERA</div>
-          <p class="perm-desc">Digunakan untuk mengambil foto nota/struk transaksi sebagai bukti pengeluaran atau pemasukan. Kamera tidak diakses di latar belakang.</p>
+          <p class="perm-desc">Mengambil foto nota/struk sebagai bukti transaksi. Kamera tidak diakses di latar belakang.</p>
         </div>
       </div>
       <div class="perm-item">
         <div class="perm-icon">🌐</div>
         <div>
           <div class="perm-name">INTERNET</div>
-          <p class="perm-desc">Digunakan untuk menyinkronkan data transaksi ke cloud (Supabase) saat perangkat terhubung ke internet. Aplikasi tetap berfungsi penuh tanpa koneksi internet.</p>
+          <p class="perm-desc">Sinkronisasi data ke cloud (Supabase) secara aman. Aplikasi tetap berfungsi penuh tanpa koneksi internet.</p>
         </div>
       </div>
       <div class="perm-item">
         <div class="perm-icon">🔔</div>
         <div>
           <div class="perm-name">POST_NOTIFICATIONS</div>
-          <p class="perm-desc">Digunakan untuk mengirim pengingat pencatatan transaksi sesuai jadwal yang Anda atur (misalnya pengingat pagi dan malam).</p>
-        </div>
-      </div>
-      <div class="perm-item">
-        <div class="perm-icon">☀️</div>
-        <div>
-          <div class="perm-name">RECEIVE_BOOT_COMPLETED</div>
-          <p class="perm-desc">Digunakan agar jadwal notifikasi pengingat dapat dipulihkan otomatis setelah perangkat dinyalakan ulang (restart).</p>
+          <p class="perm-desc">Pengingat pencatatan rutin sesuai jadwal yang Anda atur (pagi/malam).</p>
         </div>
       </div>
       <div class="perm-item">
         <div class="perm-icon">👆</div>
         <div>
           <div class="perm-name">USE_BIOMETRIC</div>
-          <p class="perm-desc">Digunakan untuk otentikasi biometrik (sidik jari/wajah) sebagai alternatif PIN saat membuka aplikasi. Data biometrik tidak disimpan oleh aplikasi — diproses sepenuhnya oleh sistem Android.</p>
+          <p class="perm-desc">Keamanan Sidik Jari/Wajah saat membuka aplikasi. Data biometrik diproses sepenuhnya oleh sistem Android — aplikasi tidak menyimpan data biometrik apapun.</p>
         </div>
       </div>
       <div class="perm-item">
         <div class="perm-icon">🎙️</div>
         <div>
           <div class="perm-name">RECORD_AUDIO</div>
-          <p class="perm-desc">Digunakan untuk fitur input suara (voice-to-text) saat mencatat transaksi. Rekaman audio tidak disimpan — hanya diproses secara lokal untuk konversi teks.</p>
+          <p class="perm-desc">Fitur input suara (voice-to-text) saat mencatat transaksi. Kami <strong>tidak menyimpan rekaman audio</strong> Anda — audio hanya diproses secara lokal untuk konversi teks.</p>
         </div>
       </div>
     </div>
@@ -563,149 +602,30 @@
   <section id="s4">
     <div class="section-header">
       <span class="section-num">04</span>
-      <h2>Cara Penggunaan Data</h2>
-    </div>
-    <p>Data yang dikumpulkan digunakan <strong>semata-mata</strong> untuk keperluan berikut:</p>
-
-    <div class="card">
-      <div class="card-header">// Tujuan Penggunaan Data</div>
-      <table>
-        <thead>
-          <tr><th>Tujuan</th><th>Deskripsi</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Fungsionalitas Inti</strong></td>
-            <td>Mencatat, membaca, memperbarui, dan menghapus transaksi keuangan usaha Anda</td>
-          </tr>
-          <tr>
-            <td><strong>Backup & Sinkronisasi</strong></td>
-            <td>Menyimpan salinan data ke cloud agar tidak hilang jika perangkat berganti atau rusak</td>
-          </tr>
-          <tr>
-            <td><strong>Kolaborasi Usaha</strong></td>
-            <td>Memungkinkan beberapa perangkat dalam satu usaha berbagi data via kode undangan</td>
-          </tr>
-          <tr>
-            <td><strong>Notifikasi Pengingat</strong></td>
-            <td>Mengirim pengingat untuk mencatat transaksi sesuai jadwal Anda</td>
-          </tr>
-          <tr>
-            <td><strong>Keamanan Aplikasi</strong></td>
-            <td>Memverifikasi PIN dan biometrik untuk mencegah akses tidak sah ke data usaha</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout red">
-      <span class="callout-icon">🚫</span>
-      <span>Data Anda <strong>tidak pernah</strong> digunakan untuk iklan, analitik pihak ketiga, profiling pengguna, atau dijual kepada siapapun dalam bentuk apapun.</span>
-    </div>
-  </section>
-
-  <!-- SECTION 5 -->
-  <section id="s5">
-    <div class="section-header">
-      <span class="section-num">05</span>
-      <h2>Penyimpanan & Sinkronisasi Data</h2>
-    </div>
-    <p>
-      Catat-in menggunakan arsitektur <strong>offline-first</strong>. Data selalu disimpan terlebih dahulu
-      di penyimpanan lokal perangkat menggunakan database Room (SQLite). Sinkronisasi ke cloud
-      dilakukan secara otomatis di latar belakang oleh WorkManager saat perangkat terhubung ke internet.
-    </p>
-
-    <div class="card">
-      <div class="card-header">// Alur Penyimpanan Data</div>
-      <table>
-        <thead>
-          <tr><th>Lapisan</th><th>Teknologi</th><th>Data yang Disimpan</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Lokal (Perangkat)</strong></td>
-            <td>Room Database (SQLite)</td>
-            <td>Semua data transaksi, kategori, usaha, pengaturan, hash PIN</td>
-          </tr>
-          <tr>
-            <td><strong>Cloud (Remote)</strong></td>
-            <td>Supabase (PostgreSQL)</td>
-            <td>Transaksi, kategori, data usaha (tanpa PIN, tanpa biometrik)</td>
-          </tr>
-          <tr>
-            <td><strong>Cloud Storage</strong></td>
-            <td>Supabase Storage</td>
-            <td>Foto nota/struk transaksi</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p>
-      Server Supabase yang kami gunakan berlokasi di <strong>Singapore (Asia-Pacific)</strong>.
-      Data disimpan dengan enkripsi saat penyimpanan (encryption at rest) dan enkripsi saat transmisi (TLS/HTTPS).
-    </p>
-    <p>
-      Data lokal Anda tersimpan di penyimpanan internal aplikasi dan <strong>tidak dapat diakses
-      oleh aplikasi lain</strong>. Sesuai konfigurasi manifest, fitur Android Backup
-      (<code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);">allowBackup</code>)
-      dinonaktifkan untuk melindungi privasi data usaha Anda.
-    </p>
-  </section>
-
-  <!-- SECTION 6 -->
-  <section id="s6">
-    <div class="section-header">
-      <span class="section-num">06</span>
-      <h2>Berbagi Data dengan Pihak Lain</h2>
-    </div>
-
-    <div class="callout green">
-      <span class="callout-icon">✅</span>
-      <span>Kami <strong>tidak menjual, menyewakan, atau memperdagangkan</strong> data Anda kepada pihak ketiga manapun.</span>
-    </div>
-
-    <p>Data Anda hanya dapat dibagikan dalam situasi berikut:</p>
-
-    <div class="card">
-      <div class="card-header">// Kondisi Berbagi Data</div>
-      <table>
-        <thead>
-          <tr><th>Kondisi</th><th>Penjelasan</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Kolaborasi Usaha</strong></td>
-            <td>Ketika Anda membagikan <em>kode undangan</em> usaha ke rekan kerja, mereka dapat mengakses data transaksi usaha yang sama. Ini adalah fitur yang Anda aktifkan secara sadar dan sukarela.</td>
-          </tr>
-          <tr>
-            <td><strong>Penyedia Infrastruktur</strong></td>
-            <td>Supabase sebagai penyedia database cloud dapat mengakses data sesuai <a href="https://supabase.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">kebijakan privasi mereka</a>. Kami menggunakan Supabase hanya sebagai penyimpanan data terenkripsi.</td>
-          </tr>
-          <tr>
-            <td><strong>Kewajiban Hukum</strong></td>
-            <td>Jika diwajibkan oleh hukum yang berlaku di Indonesia, kami dapat mengungkapkan data kepada pihak berwenang sesuai prosedur hukum yang sah.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- SECTION 7 -->
-  <section id="s7">
-    <div class="section-header">
-      <span class="section-num">07</span>
-      <h2>Keamanan Data</h2>
+      <h2>Keamanan & Penyimpanan</h2>
     </div>
     <p>Kami menerapkan langkah-langkah keamanan berikut untuk melindungi data Anda:</p>
 
     <div class="perm-list">
       <div class="perm-item">
+        <div class="perm-icon">☁️</div>
+        <div>
+          <div class="perm-name">Cloud Sync (Supabase — Singapore)</div>
+          <p class="perm-desc">Data tersimpan di server Supabase dengan enkripsi penuh menggunakan TLS/HTTPS saat transmisi dan encryption-at-rest saat penyimpanan.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-icon">📦</div>
+        <div>
+          <div class="perm-name">Penyimpanan Lokal Terisolasi</div>
+          <p class="perm-desc">Database internal ponsel diproteksi sistem Android dan tidak dapat diakses oleh aplikasi lain. Fitur <code style="font-family:'DM Mono',monospace;font-size:11px;">allowBackup</code> dinonaktifkan untuk melindungi data keuangan Anda dari backup cloud standar yang kurang aman.</p>
+        </div>
+      </div>
+      <div class="perm-item">
         <div class="perm-icon">🔐</div>
         <div>
           <div class="perm-name">Enkripsi PIN</div>
-          <p class="perm-desc">PIN Anda disimpan sebagai hash kriptografi — bukan teks asli. Bahkan pengembang tidak dapat membaca PIN Anda.</p>
+          <p class="perm-desc">PIN disimpan sebagai hash kriptografi satu arah — bukan teks asli. Bahkan pengembang tidak dapat membaca PIN Anda.</p>
         </div>
       </div>
       <div class="perm-item">
@@ -715,41 +635,69 @@
           <p class="perm-desc">Data biometrik (sidik jari, wajah) diproses sepenuhnya oleh sistem Android dan hardware perangkat. Aplikasi hanya menerima sinyal "berhasil/gagal" tanpa menyimpan data biometrik apapun.</p>
         </div>
       </div>
-      <div class="perm-item">
-        <div class="perm-icon">🔒</div>
-        <div>
-          <div class="perm-name">HTTPS/TLS</div>
-          <p class="perm-desc">Semua komunikasi jaringan antara aplikasi dan server Supabase dienkripsi menggunakan protokol TLS.</p>
-        </div>
-      </div>
-      <div class="perm-item">
-        <div class="perm-icon">📦</div>
-        <div>
-          <div class="perm-name">Isolasi Penyimpanan Lokal</div>
-          <p class="perm-desc">Database lokal berada di penyimpanan privat aplikasi (tidak dapat diakses aplikasi lain). Android Backup dinonaktifkan untuk mencegah kebocoran data melalui backup cloud Android.</p>
-        </div>
-      </div>
-      <div class="perm-item">
-        <div class="perm-icon">🗑️</div>
-        <div>
-          <div class="perm-name">Soft Delete Aman</div>
-          <p class="perm-desc">Transaksi yang dihapus ditandai sebagai <code style="font-family:'DM Mono',monospace;font-size:11px;">is_deleted=true</code> dan disinkronkan ke cloud sebelum dihapus permanen, memastikan konsistensi data.</p>
-        </div>
-      </div>
     </div>
 
     <div class="callout orange">
       <span class="callout-icon">⚠️</span>
       <span>Meskipun kami menerapkan berbagai langkah keamanan, tidak ada sistem yang 100% aman.
-      Kami menyarankan Anda mengaktifkan PIN dan/atau biometrik di aplikasi untuk perlindungan tambahan,
-      serta menjaga kerahasiaan kode undangan usaha Anda.</span>
+      Kami menyarankan Anda mengaktifkan PIN dan/atau biometrik di aplikasi untuk perlindungan tambahan.</span>
     </div>
   </section>
 
-  <!-- SECTION 8 -->
-  <section id="s8">
+  <!-- SECTION 5 -->
+  <section id="s5">
     <div class="section-header">
-      <span class="section-num">08</span>
+      <span class="section-num">05</span>
+      <h2>Layanan Pihak Ketiga</h2>
+    </div>
+    <p>Catat-in bekerja sama dengan penyedia berikut yang masing-masing memiliki kebijakan privasi tersendiri:</p>
+
+    <div class="card">
+      <div class="card-header">// Daftar Layanan Pihak Ketiga</div>
+      <table>
+        <thead>
+          <tr><th>Layanan</th><th>Fungsi</th><th>Kebijakan Privasi</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Google Identity & Play Services</strong></td>
+            <td>Login via Google Sign-In dan layanan inti Android</td>
+            <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">policies.google.com/privacy</a></td>
+          </tr>
+          <tr>
+            <td><strong>Google AdMob</strong></td>
+            <td>Layanan iklan pendukung pengembangan aplikasi</td>
+            <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">policies.google.com/privacy</a></td>
+          </tr>
+          <tr>
+            <td><strong>Firebase (Google)</strong></td>
+            <td>Analisis stabilitas (Crashlytics) & statistik penggunaan (Analytics)</td>
+            <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">firebase.google.com/support/privacy</a></td>
+          </tr>
+          <tr>
+            <td><strong>Google Play Billing</strong></td>
+            <td>Pemrosesan transaksi fitur Pro</td>
+            <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">policies.google.com/privacy</a></td>
+          </tr>
+          <tr>
+            <td><strong>Supabase</strong></td>
+            <td>Infrastruktur database cloud (PostgreSQL) & penyimpanan foto nota</td>
+            <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">supabase.com/privacy</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout purple">
+      <span class="callout-icon">📌</span>
+      <span>Catat-in <strong>tidak menggunakan</strong> Facebook SDK, SDK perekam sesi, atau tracker pengguna pihak ketiga lainnya selain yang tercantum di atas.</span>
+    </div>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
       <h2>Hak-Hak Anda sebagai Pengguna</h2>
     </div>
     <p>Sebagai pengguna Catat-in, Anda memiliki kontrol penuh atas data Anda:</p>
@@ -771,71 +719,26 @@
           </tr>
           <tr>
             <td><strong>Menghapus Data</strong></td>
-            <td>Hapus transaksi atau kategori dari dalam aplikasi; hapus semua data dengan menghapus instalasi aplikasi</td>
+            <td>Hapus transaksi atau kategori dari dalam aplikasi</td>
           </tr>
           <tr>
-            <td><strong>Portabilitas Data</strong></td>
-            <td>Hubungi kami untuk permintaan ekspor data Anda dari server cloud</td>
-          </tr>
-          <tr>
-            <td><strong>Menghapus Data Cloud</strong></td>
-            <td>Hubungi kami untuk permintaan penghapusan data Anda dari server Supabase secara permanen</td>
-          </tr>
-          <tr>
-            <td><strong>Menonaktifkan Sinkronisasi</strong></td>
-            <td>Gunakan aplikasi dalam mode offline (tanpa koneksi internet) — data hanya tersimpan lokal</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- SECTION 9 -->
-  <section id="s9">
-    <div class="section-header">
-      <span class="section-num">09</span>
-      <h2>Layanan Pihak Ketiga</h2>
-    </div>
-    <p>Catat-in menggunakan layanan pihak ketiga berikut yang masing-masing memiliki kebijakan privasi tersendiri:</p>
-
-    <div class="card">
-      <div class="card-header">// Daftar Layanan Pihak Ketiga</div>
-      <table>
-        <thead>
-          <tr><th>Layanan</th><th>Fungsi</th><th>Kebijakan Privasi</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Supabase</strong></td>
-            <td>Database cloud (PostgreSQL) dan penyimpanan foto nota</td>
-            <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">supabase.com/privacy</a></td>
-          </tr>
-          <tr>
-            <td><strong>Android WorkManager</strong></td>
-            <td>Manajemen tugas background untuk sinkronisasi data</td>
-            <td>Bagian dari Android (Google)</td>
-          </tr>
-          <tr>
-            <td><strong>Android Biometric API</strong></td>
-            <td>Autentikasi sidik jari / pengenalan wajah</td>
-            <td>Bagian dari Android (Google)</td>
+            <td><strong>Penghapusan Akun Permanen</strong></td>
+            <td>Dapat dilakukan via aplikasi atau dengan menghubungi email kami</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="callout purple">
-      <span class="callout-icon">📌</span>
-      <span>Catat-in <strong>tidak menggunakan</strong> Google Analytics, Firebase Analytics, Facebook SDK,
-      atau SDK iklan/analitik pihak ketiga lainnya. Tidak ada SDK perekam sesi atau pelacak pengguna
-      yang diimplementasikan dalam aplikasi ini.</span>
+    <div class="callout blue">
+      <span class="callout-icon">ℹ️</span>
+      <span>Anda dapat mengakses, mengubah, atau menghapus data Anda kapan saja melalui setelan di dalam aplikasi. Untuk pertanyaan lebih lanjut mengenai hak privasi Anda, silakan hubungi kami.</span>
     </div>
   </section>
 
-  <!-- SECTION 10 -->
-  <section id="s10">
+  <!-- SECTION 7 -->
+  <section id="s7">
     <div class="section-header">
-      <span class="section-num">10</span>
+      <span class="section-num">07</span>
       <h2>Perubahan Kebijakan & Hubungi Kami</h2>
     </div>
     <p>
@@ -857,8 +760,8 @@
             <td><a href="mailto:difanamus@gmail.com" style="color:var(--accent2);">difanamus@gmail.com</a></td>
           </tr>
           <tr>
-            <td><strong>GitHub</strong></td>
-            <td><a href="https://github.com/difanamus/catat-in" target="_blank" rel="noopener" style="color:var(--accent2);">github.com/difanamus/catat-in</a></td>
+            <td><strong>Developer</strong></td>
+            <td>Install-In (Indonesia)</td>
           </tr>
           <tr>
             <td><strong>Negara</strong></td>
@@ -890,9 +793,9 @@
 <script>
   // scroll progress bar
   window.addEventListener('scroll', () => {
+    const el = document.getElementById('progress');
     const total = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (window.scrollY / total) * 100;
-    document.getElementById('progress').style.width = progress + '%';
+    el.style.width = (window.scrollY / total * 100) + '%';
   });
 </script>
 </body>
