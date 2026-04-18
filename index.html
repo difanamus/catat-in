@@ -391,7 +391,7 @@
     </p>
     <div class="meta">
       <span>📅 Berlaku sejak: 27 Maret 2026</span>
-      <span>🔄 Terakhir diperbarui: 27 Maret 2026</span>
+      <span>🔄 Terakhir diperbarui: 18 April 2026</span>
       <span>📱 Package ID: com.umkm.app</span>
     </div>
   </header>
@@ -417,8 +417,9 @@
       <h2>Tentang Aplikasi Catat-in</h2>
     </div>
     <p>
-      <strong>Catat-in</strong> adalah aplikasi pencatatan keuangan yang dirancang khusus untuk
-      Usaha Mikro, Kecil, dan Menengah (UMKM). Aplikasi ini membantu pemilik usaha mencatat
+      <strong>Catat-in</strong> adalah platform pencatatan keuangan yang dirancang khusus untuk
+      Usaha Mikro, Kecil, dan Menengah (UMKM), tersedia melalui <strong>Aplikasi Android</strong> 
+      dan <strong>Web Dashboard</strong>. Aplikasi ini membantu pemilik usaha mencatat
       transaksi, mengelola kategori, dan memantau arus kas secara mandiri.
     </p>
     <p>
@@ -431,7 +432,7 @@
       <span class="callout-icon">🛡️</span>
       <span>Catat-in menggunakan arsitektur <strong>offline-first</strong> dengan sinkronisasi
       cloud yang aman ke server Supabase. Semua data Anda disimpan terlebih dahulu di perangkat,
-      dan sinkronisasi ke cloud dilakukan secara aman menggunakan enkripsi TLS/HTTPS.</span>
+      dan dapat diakses secara real-time melalui HP maupun Web Dashboard (https://catat.install-in.com).</span>
     </div>
   </section>
 
@@ -595,6 +596,13 @@
           <p class="perm-desc">Fitur input suara (voice-to-text) saat mencatat transaksi. Kami <strong>tidak menyimpan rekaman audio</strong> Anda — audio hanya diproses secara lokal untuk konversi teks.</p>
         </div>
       </div>
+      <div class="perm-item">
+        <div class="perm-icon">📂</div>
+        <div>
+          <div class="perm-name">MEDIA/STORAGE</div>
+          <p class="perm-desc">Digunakan untuk menyimpan sementara laporan PDF atau file Excel hasil ekspor sebelum disimpan ke galeri atau dibagikan oleh Anda.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -681,8 +689,13 @@
           </tr>
           <tr>
             <td><strong>Supabase</strong></td>
-            <td>Infrastruktur database cloud (PostgreSQL) & penyimpanan foto nota</td>
+            <td>Infrastruktur database cloud & sinkronisasi real-time antar perangkat</td>
             <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener" style="color:var(--accent2);">supabase.com/privacy</a></td>
+          </tr>
+          <tr>
+            <td><strong>Vercel</strong></td>
+            <td>Platform hosting aman untuk Web Dashboard Catat-in</td>
+            <td><a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener" style="color:var(--accent2);">vercel.com/legal/privacy-policy</a></td>
           </tr>
         </tbody>
       </table>
@@ -723,7 +736,11 @@
           </tr>
           <tr>
             <td><strong>Penghapusan Akun Permanen</strong></td>
-            <td>Dapat dilakukan via aplikasi atau dengan menghubungi email kami</td>
+            <td>Dapat dilakukan via Menu Pengaturan aplikasi atau dengan menghubungi email kami</td>
+          </tr>
+          <tr>
+            <td><strong>Ekspor Data (PDF/Excel)</strong></td>
+            <td>Unduh laporan keuangan lengkap Anda kapan saja melalui Web Dashboard Catat-in</td>
           </tr>
         </tbody>
       </table>
