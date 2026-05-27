@@ -391,7 +391,7 @@
     </p>
     <div class="meta">
       <span>📅 Berlaku sejak: 27 Maret 2026</span>
-      <span>🔄 Terakhir diperbarui: 18 April 2026</span>
+      <span>🔄 Terakhir diperbarui: 27 Mei 2026</span>
       <span>📱 Package ID: com.umkm.app</span>
     </div>
   </header>
@@ -403,10 +403,11 @@
       <li><a href="#s1">Tentang Aplikasi</a></li>
       <li><a href="#s2">Data yang Dikumpulkan</a></li>
       <li><a href="#s3">Izin Perangkat</a></li>
-      <li><a href="#s4">Keamanan & Penyimpanan</a></li>
-      <li><a href="#s5">Layanan Pihak Ketiga</a></li>
-      <li><a href="#s6">Hak Pengguna</a></li>
-      <li><a href="#s7">Hubungi Kami</a></li>
+      <li><a href="#s4">Auto-Import Notifikasi <em style="color:var(--warn);font-style:normal;">(BETA)</em></a></li>
+      <li><a href="#s5">Keamanan & Penyimpanan</a></li>
+      <li><a href="#s6">Layanan Pihak Ketiga</a></li>
+      <li><a href="#s7">Hak Pengguna</a></li>
+      <li><a href="#s8">Hubungi Kami</a></li>
     </ol>
   </div>
 
@@ -603,6 +604,13 @@
           <p class="perm-desc">Digunakan untuk menyimpan sementara laporan PDF atau file Excel hasil ekspor sebelum disimpan ke galeri atau dibagikan oleh Anda.</p>
         </div>
       </div>
+      <div class="perm-item">
+        <div class="perm-icon">🔔</div>
+        <div>
+          <div class="perm-name">BIND_NOTIFICATION_LISTENER_SERVICE <span style="background:rgba(251,146,60,.2);color:var(--warn);padding:2px 6px;border-radius:4px;font-size:10px;letter-spacing:.5px;margin-left:6px;">BETA · OPSIONAL</span></div>
+          <p class="perm-desc">Diperlukan untuk fitur <strong>Auto-Import Transaksi dari Notifikasi</strong> (lihat Bagian 04). Izin ini <strong>tidak diminta otomatis</strong> — hanya saat Anda mengaktifkan toggle "Aktifkan auto-import dari notifikasi" di Pengaturan, aplikasi akan mengarahkan Anda ke layar izin sistem Android. Aplikasi hanya membaca notifikasi dari 6 paket bank/e-wallet yang masuk daftar putih (BCA, BRI, Mandiri, DANA, GoPay, ShopeePay). Pemrosesan dilakukan sepenuhnya di perangkat. Dapat dimatikan kapan saja dari Pengaturan aplikasi atau pengaturan sistem Android.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -610,6 +618,147 @@
   <section id="s4">
     <div class="section-header">
       <span class="section-num">04</span>
+      <h2>Auto-Import Notifikasi <span style="background:rgba(251,146,60,.2);color:var(--warn);padding:3px 10px;border-radius:6px;font-size:12px;letter-spacing:1px;margin-left:8px;vertical-align:middle;">BETA</span></h2>
+    </div>
+    <p>
+      <strong>Auto-Import Notifikasi</strong> adalah fitur opsional yang membaca notifikasi dari aplikasi bank dan e-wallet
+      yang terpasang di perangkat Anda, kemudian membuat draf transaksi otomatis di Inbox Catat-in.
+      Bagian ini menjelaskan cara kerjanya secara transparan, data apa yang diproses, dan kontrol yang Anda miliki.
+    </p>
+
+    <div class="callout orange">
+      <span class="callout-icon">🧪</span>
+      <span><strong>Status BETA</strong> — Fitur ini masih dalam pematangan. Parser belum sempurna dan beberapa notifikasi mungkin
+      salah dibaca atau tidak terdeteksi. Selalu cek draf di Inbox sebelum disimpan sebagai transaksi.</span>
+    </div>
+
+    <div class="sub-label">A. Bagaimana Cara Kerjanya</div>
+    <p>Saat Anda mengaktifkan toggle "Aktifkan auto-import dari notifikasi" di Pengaturan:</p>
+    <ol style="padding-left:20px; margin:8px 0 16px; color:var(--muted); line-height:1.9;">
+      <li>Aplikasi mengarahkan Anda ke pengaturan sistem Android untuk memberikan izin <em>Notification Access</em>.</li>
+      <li>Setelah izin diberikan, sistem Android mengirim salinan notifikasi yang masuk ke Catat-in <strong>khusus untuk paket aplikasi yang masuk daftar putih</strong>.</li>
+      <li>Catat-in mem-parsing teks notifikasi dengan aturan berbasis kata kunci (regex) <strong>sepenuhnya di perangkat</strong>.</li>
+      <li>Hasil parsing disimpan sebagai draf transaksi di tabel lokal <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);">parsed_notifications</code> di database internal aplikasi.</li>
+      <li>Anda meninjau draf di layar Inbox lalu memilih: konfirmasi, edit, atau buang.</li>
+    </ol>
+
+    <div class="sub-label">B. Daftar Putih Aplikasi yang Diproses</div>
+    <p>Hanya 6 paket aplikasi berikut yang notifikasinya akan dibaca. Notifikasi dari aplikasi lain — termasuk email, pesan singkat, media sosial — <strong>tidak akan diproses sama sekali</strong>:</p>
+    <div class="card">
+      <div class="card-header">// Whitelist Aplikasi (hardcoded)</div>
+      <table>
+        <thead>
+          <tr><th>Aplikasi</th><th>Package ID</th><th>Tipe</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BCA Mobile</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.bca</code></td><td>Bank</td></tr>
+          <tr><td>BRImo</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.co.bri.brimo</code></td><td>Bank</td></tr>
+          <tr><td>Livin' by Mandiri</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.bmri.livin</code></td><td>Bank</td></tr>
+          <tr><td>DANA</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.dana</code></td><td>E-Wallet</td></tr>
+          <tr><td>Gojek (GoPay)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.gojek.app</code></td><td>E-Wallet</td></tr>
+          <tr><td>Shopee (ShopeePay)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.shopee.id</code></td><td>E-Wallet</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-label">C. Privasi Data Notifikasi</div>
+    <div class="callout green">
+      <span class="callout-icon">🛡️</span>
+      <span><strong>Data notifikasi tidak dikirim ke server kami.</strong> Teks notifikasi mentah dan hasil parsing
+      hanya disimpan di database lokal perangkat Anda dan <strong>tidak disinkronkan ke cloud Supabase</strong>
+      seperti data transaksi lain. Pengembang Catat-in tidak dapat melihat isi notifikasi Anda.</span>
+    </div>
+    <p>Pengamanan tambahan:</p>
+    <ul style="list-style:none; padding-left:0; margin:8px 0 16px;">
+      <li style="padding:6px 0; color:var(--muted);"><strong style="color:var(--text);">→ Tabel <code style="font-family:'DM Mono',monospace;font-size:12px;">parsed_notifications</code></strong> sengaja dikecualikan dari proses sinkronisasi cloud (kontrak teknis: <em>SyncManager</em> tidak punya path upload untuk tabel ini).</li>
+      <li style="padding:6px 0; color:var(--muted);"><strong style="color:var(--text);">→ Garbage collection otomatis</strong>: draf yang sudah dikonfirmasi/dibuang dihapus setelah 30 hari, draf <em>pending</em> dihapus setelah 90 hari.</li>
+      <li style="padding:6px 0; color:var(--muted);"><strong style="color:var(--text);">→ Master toggle</strong> dapat dimatikan kapan saja di Pengaturan, dan sebelum mati seluruh notifikasi balasan otomatis di-dismiss.</li>
+    </ul>
+
+    <div class="sub-label">D. Hard-Reject (Notifikasi yang Ditolak Otomatis)</div>
+    <p>Tidak semua notifikasi dari aplikasi whitelist akan dibuat draf. Parser akan menolak otomatis:</p>
+    <ul style="list-style:none; padding-left:0; margin:8px 0 16px;">
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→ Kode OTP / verifikasi</strong> — tidak akan pernah disimpan, dibaca, atau diteruskan kemana pun.</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→ Promo / iklan tanpa transaksi nyata</strong>.</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→ Ringkasan multi-transaksi</strong> (mis. "3 transaksi hari ini").</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→ Notifikasi gagal tanpa pengembalian dana</strong>.</li>
+    </ul>
+
+    <div class="sub-label">E. Laporan Parsing Salah (Opt-In)</div>
+    <p>
+      Jika Catat-in salah membaca notifikasi Anda, layar Inbox menyediakan tombol opsional
+      <strong>"Laporkan parsing salah"</strong>. Tombol ini <strong>tidak otomatis</strong> dan
+      mengirim data hanya saat Anda menekan tombol "Kirim laporan" di dialog konfirmasi.
+    </p>
+    <p>Sebelum dikirim, teks notifikasi mengalami proses anonimisasi otomatis yang mengganti:</p>
+    <div class="card">
+      <div class="card-header">// Pola yang Dianonimisasi</div>
+      <table>
+        <thead>
+          <tr><th>Pola Asli</th><th>Diganti Menjadi</th><th>Contoh</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Angka 8 digit atau lebih</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent3);">[NUM]</code></td>
+            <td>Nomor rekening, nomor referensi, nomor HP</td>
+          </tr>
+          <tr>
+            <td>Kata huruf kapital ≥ 5 huruf</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent3);">[NAME]</code></td>
+            <td>Nama orang (kecuali label seperti BCA, DANA, QRIS)</td>
+          </tr>
+          <tr>
+            <td>Alamat email</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent3);">[EMAIL]</code></td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:11px;">callbri@bri.co.id</code> → <code style="font-family:'DM Mono',monospace;font-size:11px;">[EMAIL]</code></td>
+          </tr>
+          <tr>
+            <td>URL HTTP/HTTPS</td>
+            <td><code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent3);">[URL]</code></td>
+            <td>Link tracking di body notifikasi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Dialog konfirmasi <strong>menampilkan teks final yang akan dikirim</strong> (setelah anonimisasi) sehingga Anda dapat memeriksa sebelum menyetujui pengiriman.</p>
+    <p>Yang dikirim ke server <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);">parser_feedback</code>:</p>
+    <ul style="list-style:none; padding-left:0; margin:8px 0 16px;">
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Teks notifikasi yang sudah dianonimisasi (lihat tabel di atas).</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Hasil parsing (tipe transaksi, nominal, sumber yang diidentifikasi parser).</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Koreksi yang Anda berikan (tipe transaksi yang benar, jika dipilih).</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Catatan bebas dari Anda (opsional, max 500 karakter, juga dianonimisasi).</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Identifier perangkat yang sudah di-hash (bukan email, bukan ID akun Google Anda).</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Nama paket aplikasi sumber notifikasi (dari daftar putih), versi aplikasi, versi parser.</li>
+    </ul>
+    <p>Yang <strong>tidak</strong> dikirim:</p>
+    <ul style="list-style:none; padding-left:0; margin:8px 0 16px;">
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Email Anda, ID Google, nama akun, atau identitas lain yang dapat menelusuri Anda.</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Nomor rekening, nomor referensi, nomor HP (selalu di-mask jadi <code style="font-family:'DM Mono',monospace;font-size:12px;">[NUM]</code>).</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Saldo, foto nota, riwayat transaksi, atau data keuangan apa pun selain teks notifikasi tunggal yang Anda laporkan.</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→</strong> Notifikasi yang tidak Anda laporkan secara aktif.</li>
+    </ul>
+
+    <div class="callout orange">
+      <span class="callout-icon">⚠️</span>
+      <span>Anonimisasi bersifat <em>best-effort</em>. Sistem otomatis tidak dapat menjamin 100% PII hilang dari teks bahasa natural. Tinjau preview sebelum mengirim.
+      Jika Anda ragu, jangan kirim laporan.</span>
+    </div>
+
+    <p>Tabel <code style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);">parser_feedback</code> di Supabase memiliki kebijakan akses ketat: hanya pengembang aplikasi (via service role) yang dapat membaca isinya. Tidak ada API publik atau pengguna lain yang dapat melihat laporan Anda. Data dipakai murni untuk analisis kesalahan parser dan perbaikan rilis berikutnya.</p>
+
+    <div class="sub-label">F. Bagaimana Mematikan Fitur Ini</div>
+    <ul style="list-style:none; padding-left:0; margin:8px 0 16px;">
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→ Di aplikasi:</strong> Pengaturan → Otomatisasi → matikan toggle "Aktifkan auto-import dari notifikasi". Seluruh draf <em>pending</em> akan dihapus oleh garbage collector setelah 90 hari.</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→ Di pengaturan sistem Android:</strong> Pengaturan → Notifikasi → Akses Notifikasi → cabut izin Catat-in.</li>
+      <li style="padding:4px 0; color:var(--muted);"><strong style="color:var(--text);">→ Hapus laporan yang sudah terkirim:</strong> Hubungi <a href="mailto:difanamus@gmail.com" style="color:var(--accent2);">difanamus@gmail.com</a> dengan menyertakan periode kira-kira pengiriman; karena tidak ada identifier akun di tabel, kami menghapus berdasarkan timestamp dan device hash bila Anda mau berbagi dari log aplikasi.</li>
+    </ul>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
       <h2>Keamanan & Penyimpanan</h2>
     </div>
     <p>Kami menerapkan langkah-langkah keamanan berikut untuk melindungi data Anda:</p>
@@ -652,10 +801,10 @@
     </div>
   </section>
 
-  <!-- SECTION 5 -->
-  <section id="s5">
+  <!-- SECTION 6 -->
+  <section id="s6">
     <div class="section-header">
-      <span class="section-num">05</span>
+      <span class="section-num">06</span>
       <h2>Layanan Pihak Ketiga</h2>
     </div>
     <p>Catat-in bekerja sama dengan penyedia berikut yang masing-masing memiliki kebijakan privasi tersendiri:</p>
@@ -707,10 +856,10 @@
     </div>
   </section>
 
-  <!-- SECTION 6 -->
-  <section id="s6">
+  <!-- SECTION 7 -->
+  <section id="s7">
     <div class="section-header">
-      <span class="section-num">06</span>
+      <span class="section-num">07</span>
       <h2>Hak-Hak Anda sebagai Pengguna</h2>
     </div>
     <p>Sebagai pengguna Catat-in, Anda memiliki kontrol penuh atas data Anda:</p>
@@ -752,10 +901,10 @@
     </div>
   </section>
 
-  <!-- SECTION 7 -->
-  <section id="s7">
+  <!-- SECTION 8 -->
+  <section id="s8">
     <div class="section-header">
-      <span class="section-num">07</span>
+      <span class="section-num">08</span>
       <h2>Perubahan Kebijakan & Hubungi Kami</h2>
     </div>
     <p>
