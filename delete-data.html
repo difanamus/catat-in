@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delete My Data – [App Name]</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f6f2;
+      --surface: #ffffff;
+      --border: #e4e1d8;
+      --text: #1a1916;
+      --muted: #767266;
+      --accent: #d94f3b;
+      --accent-light: #fdf1ef;
+      --green: #2d7a4f;
+      --green-light: #edf7f2;
+      --step-bg: #f0ede6;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .app-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .app-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Section */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      background: var(--step-bg);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+    }
+
+    .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      border-radius: 6px;
+      padding: 0.2rem 0.45rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-text {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .step-text strong {
+      font-weight: 600;
+    }
+
+    /* Data table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0.5rem 0.75rem;
+      background: var(--step-bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table th:first-child { border-radius: 8px 0 0 0; }
+    .data-table th:last-child  { border-radius: 0 8px 0 0; }
+
+    .data-table td {
+      padding: 0.7rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+    }
+
+    .tag-delete { background: var(--accent-light); color: var(--accent); }
+    .tag-keep   { background: #f0f0f0; color: #555; }
+
+    /* Notice */
+    .notice {
+      background: var(--green-light);
+      border: 1px solid #b8e0ca;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      font-size: 0.85rem;
+      color: var(--green);
+      line-height: 1.55;
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+
+    .notice-icon { flex-shrink: 0; font-size: 1rem; margin-top: 1px; }
+
+    /* Contact */
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-decoration: none;
+      margin-top: 0.75rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); }
+
+    /* Footer */
+    .footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="app-badge">[App Name] · [Developer Name]</div>
+    <h1>Request Data Deletion</h1>
+    <p class="subtitle">
+      You can delete your data directly from within the app, or contact us to submit a manual deletion request.
+    </p>
+  </div>
+
+  <!-- How to delete in-app -->
+  <div class="section">
+    <div class="section-label">In-App · Recommended</div>
+    <h2>Delete your data from the app</h2>
+    <p>The fastest way to delete your data is directly through the app settings.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <span class="step-text">Open <strong>[App Name]</strong> on your device</span>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <!-- ✏️ EDIT: sesuaikan path menu di app kamu -->
+        <span class="step-text">Go to <strong>Settings → Account → Delete My Data</strong></span>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span class="step-text">Tap <strong>Confirm Deletion</strong> — your data will be permanently removed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- What gets deleted -->
+  <div class="section">
+    <div class="section-label">Data Scope</div>
+    <h2>What data is affected?</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Data Type</th>
+          <th>Action</th>
+          <th>Retention</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Parser feedback (anonymized text)</td>
+          <td><span class="tag tag-delete">Deleted</span></td>
+          <td>Within 30 days of request</td>
+        </tr>
+        <tr>
+          <td>Parser version &amp; app version logs</td>
+          <td><span class="tag tag-delete">Deleted</span></td>
+          <td>Within 30 days of request</td>
+        </tr>
+        <!-- Tambah baris jika ada data lain -->
+      </tbody>
+    </table>
+
+    <div class="notice">
+      <span class="notice-icon">✓</span>
+      <span>All personal data is anonymized before storage. No names, email addresses, or account identifiers are linked to feedback data.</span>
+    </div>
+  </div>
+
+  <!-- Contact / Manual request -->
+  <div class="section">
+    <div class="section-label">Manual Request</div>
+    <h2>Can't access the app?</h2>
+    <p>
+      If you're unable to delete your data through the app, you can submit a request by email. Include your user ID or device identifier (found in app Settings) so we can locate your data.
+    </p>
+    <!-- ✏️ EDIT: ganti email kamu -->
+    <a class="contact-link" href="mailto:support@install-in.com?subject=Data%20Deletion%20Request">
+      ↗ support@install-in.com
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <!-- ✏️ EDIT: nama app, developer, tahun -->
+    <strong>[App Name]</strong> by [Developer Name] &nbsp;·&nbsp; Last updated: June 2025<br/>
+    This page is provided to comply with Google Play Data Safety requirements.
+  </div>
+
+</div>
+</body>
+</html>
