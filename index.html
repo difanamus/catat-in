@@ -391,7 +391,7 @@
     </p>
     <div class="meta">
       <span>📅 Berlaku sejak: 27 Maret 2026</span>
-      <span>🔄 Terakhir diperbarui: 27 Mei 2026</span>
+      <span>🔄 Terakhir diperbarui: 22 Juni 2026</span>
       <span>📱 Package ID: com.umkm.app</span>
     </div>
   </header>
@@ -608,7 +608,7 @@
         <div class="perm-icon">🔔</div>
         <div>
           <div class="perm-name">BIND_NOTIFICATION_LISTENER_SERVICE <span style="background:rgba(251,146,60,.2);color:var(--warn);padding:2px 6px;border-radius:4px;font-size:10px;letter-spacing:.5px;margin-left:6px;">BETA · OPSIONAL</span></div>
-          <p class="perm-desc">Diperlukan untuk fitur <strong>Auto-Import Transaksi dari Notifikasi</strong> (lihat Bagian 04). Izin ini <strong>tidak diminta otomatis</strong> — hanya saat Anda mengaktifkan toggle "Aktifkan auto-import dari notifikasi" di Pengaturan, aplikasi akan mengarahkan Anda ke layar izin sistem Android. Aplikasi hanya membaca notifikasi dari 6 paket bank/e-wallet yang masuk daftar putih (BCA, BRI, Mandiri, DANA, GoPay, ShopeePay). Pemrosesan dilakukan sepenuhnya di perangkat. Dapat dimatikan kapan saja dari Pengaturan aplikasi atau pengaturan sistem Android.</p>
+          <p class="perm-desc">Diperlukan untuk fitur <strong>Auto-Import Transaksi dari Notifikasi</strong> (lihat Bagian 04). Izin ini <strong>tidak diminta otomatis</strong> — hanya saat Anda mengaktifkan toggle "Aktifkan auto-import dari notifikasi" di Pengaturan, aplikasi akan mengarahkan Anda ke layar izin sistem Android. Aplikasi hanya membaca notifikasi dari 25 paket aplikasi bank &amp; e-wallet yang masuk daftar putih (daftar lengkap di Bagian 04). Pemrosesan dilakukan sepenuhnya di perangkat. Dapat dimatikan kapan saja dari Pengaturan aplikasi atau pengaturan sistem Android.</p>
         </div>
       </div>
     </div>
@@ -643,7 +643,7 @@
     </ol>
 
     <div class="sub-label">B. Daftar Putih Aplikasi yang Diproses</div>
-    <p>Hanya 6 paket aplikasi berikut yang notifikasinya akan dibaca. Notifikasi dari aplikasi lain — termasuk email, pesan singkat, media sosial — <strong>tidak akan diproses sama sekali</strong>:</p>
+    <p>Hanya 25 paket aplikasi berikut yang notifikasinya akan dibaca. Notifikasi dari aplikasi lain — termasuk email, pesan singkat, media sosial — <strong>tidak akan diproses sama sekali</strong>:</p>
     <div class="card">
       <div class="card-header">// Whitelist Aplikasi (hardcoded)</div>
       <table>
@@ -651,12 +651,31 @@
           <tr><th>Aplikasi</th><th>Package ID</th><th>Tipe</th></tr>
         </thead>
         <tbody>
-          <tr><td>BCA Mobile</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.bca</code></td><td>Bank</td></tr>
+          <tr><td>BCA mobile (m-BCA)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.bca</code></td><td>Bank</td></tr>
+          <tr><td>myBCA</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.bca.mybca.omni.android</code></td><td>Bank</td></tr>
           <tr><td>BRImo</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.co.bri.brimo</code></td><td>Bank</td></tr>
           <tr><td>Livin' by Mandiri</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.bmri.livin</code></td><td>Bank</td></tr>
+          <tr><td>BNI Mobile Banking</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">src.com.bni</code></td><td>Bank</td></tr>
+          <tr><td>wondr by BNI</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.bni.wondr</code></td><td>Bank</td></tr>
+          <tr><td>BYOND by BSI</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">co.id.bankbsi.superapp</code></td><td>Bank</td></tr>
+          <tr><td>BSI Mobile</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.bsm.activity2</code></td><td>Bank</td></tr>
+          <tr><td>OCTO by CIMB Niaga</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.co.cimbniaga.mobile.android</code></td><td>Bank</td></tr>
+          <tr><td>Permata ME (PermataMobile X)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">net.myinfosys.PermataMobileX</code></td><td>Bank</td></tr>
+          <tr><td>Jenius</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.btpn.dc</code></td><td>Bank</td></tr>
+          <tr><td>Bank Jago</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.jago.digitalBanking</code></td><td>Bank</td></tr>
+          <tr><td>SeaBank</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.co.bankbkemobile.digitalbank</code></td><td>Bank</td></tr>
+          <tr><td>blu by BCA Digital</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.bcadigital.blu</code></td><td>Bank</td></tr>
+          <tr><td>Allo Bank</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.alloapp.yump</code></td><td>Bank</td></tr>
+          <tr><td>Superbank</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.co.bankfama.android</code></td><td>Bank</td></tr>
+          <tr><td>Bank Saqu</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">bjj.bank.digital.indo.prod</code></td><td>Bank</td></tr>
+          <tr><td>neobank (Bank Neo Commerce)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.bnc.finance</code></td><td>Bank</td></tr>
           <tr><td>DANA</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">id.dana</code></td><td>E-Wallet</td></tr>
           <tr><td>Gojek (GoPay)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.gojek.app</code></td><td>E-Wallet</td></tr>
+          <tr><td>GoPay (standalone)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.gojek.gopay</code></td><td>E-Wallet</td></tr>
           <tr><td>Shopee (ShopeePay)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.shopee.id</code></td><td>E-Wallet</td></tr>
+          <tr><td>ShopeePay (standalone)</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.shopeepay.id</code></td><td>E-Wallet</td></tr>
+          <tr><td>OVO</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">ovo.id</code></td><td>E-Wallet</td></tr>
+          <tr><td>LinkAja</td><td><code style="font-family:'DM Mono',monospace;font-size:12px;">com.telkom.mwallet</code></td><td>E-Wallet</td></tr>
         </tbody>
       </table>
     </div>
